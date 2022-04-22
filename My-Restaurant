@@ -1,0 +1,94 @@
+
+#@author: elmiramansur
+
+main_dict={
+    "Pizza":[10,"tomato","cheese","salami"],
+    "Burger":[15,"tomato","meat","lettuce"],
+    "Sandwich":[5,"bread","cheddar","ham"],
+    "Pasta":[8,"pasta","basil","salt"],
+    "Steak":[15,"meat","salt","pepper"]
+    }
+
+side_dict={
+    "Salad":[5,"tomato","corn","lemon"],
+    "Potato":[6, "potato", "salt", "garlic"],
+    "Coleslaw":[7,"cabbage","mayo", "carrot"]
+    }
+    
+
+menu_list=["pizza","burger","sandwich","pasta","steak","salad","potato","coleslaw"]
+       
+Menu= f'''--- Welcome to our restaurant! --- 
+Main Dishes: 
+1. Pizza, includes {main_dict["Pizza"][1]}, {main_dict["Pizza"][2]}, {main_dict["Pizza"][3]}
+    Price:{main_dict["Pizza"][0]} ,
+2. Burger, incudes {main_dict["Burger"][1]}, {main_dict["Burger"][2]}, {main_dict["Burger"][3]}
+    Price: {main_dict["Burger"][0]}
+3. Sandwich, includes {main_dict["Sandwich"][1]}, {main_dict["Sandwich"][2]}, {main_dict["Sandwich"][3]}
+    Price: {main_dict["Sandwich"][0]} 
+4. Pasta, includes {main_dict["Pasta"][1]}, {main_dict["Pasta"][2]}, {main_dict["Pasta"][3]}
+    Price: {main_dict["Pasta"][0]}
+5. Steak, includes {main_dict["Steak"][1]}, {main_dict["Steak"][2]}, {main_dict["Steak"][3]}
+    Price:  {main_dict["Steak"][0]} 
+\nSide Dishes:
+1. Salad, includes {side_dict["Salad"][1]}, {side_dict["Salad"][2]}, {side_dict["Salad"][3]}
+    Price: {side_dict["Salad"][0]}
+2. Potato, includes {side_dict["Potato"][1]}, {side_dict["Potato"][2]}, {side_dict["Potato"][3]}
+    Price: {side_dict["Potato"][0]}
+3.Coleslaw, includes {side_dict["Coleslaw"][1]}, {side_dict["Coleslaw"][2]}, {side_dict["Coleslaw"][3]}
+    Price: {side_dict["Coleslaw"][0]}
+
+'''
+        
+print(Menu)
+print()
+    
+
+name= input("What's your name? ")
+
+
+while True:
+    post= input("What's your postcode? Enter in the ___ ___ format ")
+    
+    if post.upper().split(" ")[0] not in ["OX1","OX2","OX3"]:
+        print("We only deliver to OX1, OX2, and OX3")
+        continue
+    else:
+        if len(post)<7 or len(post.upper().split(" ")[0]) != 3 or len(post.upper().split(" ")[1]) != 3 or not (post.upper().split(" ")[1].isalnum()):
+            print("Please enter a correct format!")
+            continue
+        else:
+            break
+    
+while True:
+
+    main= input("What do you want as your main dish? ")
+    main_n= int(input(f"How many {main}s do you want? "))
+    side= input("What do you want as your side dish? ")
+    side_n= int(input(f"How many {side}s do you want? "))
+    
+
+    if main.lower() and side.lower() in menu_list:
+        if main.lower()=="burger":
+            print("We do not have lettuces right now! Please order another main dish.")
+        else:
+            if main_n+ side_n>30:
+                print("You cannot order more than 30 dishes in total! Please try again!")
+                continue
+            else:
+                print(f"\n\nWelcome {name.capitalize()}\n\nYou ordered:\n\n{main_n} {main.lower()}(s) and {side_n} {side.lower()}(s). They will be delivered to {post.upper()}.")
+                for i in main_dict.keys():
+                    if main.capitalize()==i:
+                        for j in side_dict.keys():
+                            if side.capitalize()==j:
+                                print(f"Your total is: {int(main_n)*(main_dict[i][0])+int(side_n)* (side_dict[j][0])}") 
+                            else:
+                                break
+                        else:
+                            break
+                break
+  
+    else: 
+        print("That item is not in our menu!")
+
+    
